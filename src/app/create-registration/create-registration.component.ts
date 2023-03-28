@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ApiService} from "../services/api.service";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-create-registration',
@@ -20,7 +22,7 @@ export class CreateRegistrationComponent implements OnInit {
 
   public registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private api: ApiService, private toastService: NgToastService) {
   }
 
   ngOnInit(): void {
@@ -43,12 +45,17 @@ export class CreateRegistrationComponent implements OnInit {
     );
     this.registerForm.controls['height'].valueChanges.subscribe(res=>{
       this.calculateBim(res);
+
     })
   };
 
 
   submit() {
-    console.log(this.registerForm.value)
+    this.api.postRegistration(this.registerForm.value)
+      .subscribe(res=>{
+        this.toastService.success({detail: "Success", summary:"Enquiry Added", duration: 3000});
+        this.registerForm.reset();
+      })
   }
 
   calculateBim(heightValue: number) {
@@ -58,17 +65,17 @@ export class CreateRegistrationComponent implements OnInit {
     this.registerForm.controls['bim'].patchValue(bim);
     switch (true) {
       case bim < 18.5:
-        this.registerForm.controls['bimResult'].patchValue("Underweight");
+        this.registerForm.controls['bmiResult'].patchValue("Underweight");
         break;
       case (bim >= 18.5 && bim < 25):
-        this.registerForm.controls['bimResult'].patchValue("Normal");
+        this.registerForm.controls['bmiResult'].patchValue("Normal");
         break;
       case (bim >= 25 && bim < 30):
-        this.registerForm.controls['bimResult'].patchValue("Owerweight");
+        this.registerForm.controls['bmiResult'].patchValue("Owerweight");
         break;
 
       default:
-        this.registerForm.controls['bimResult'].patchValue("Obese");
+        this.registerForm.controls['bmiResult'].patchValue("Obese");
         break;
     }
   }

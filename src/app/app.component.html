@@ -6,7 +6,11 @@
   <img width="200" src="assets/logo.png" alt="">
   <span class="example-spacer"></span>
 
-  <button mat-raised-button color="accent">
+  <button routerLink="/links" mat-raised-button color="accent">
+    LINKCS
+  </button>
+
+  <button class="m-2" routerLink="/list" mat-raised-button color="accent">
     Просмотреть список
   </button>
 </mat-toolbar>
@@ -15,3 +19,5 @@
   <router-outlet></router-outlet>
 </div>
 
+<lib-ng-toast></lib-ng-toast>
+<ng-confirm></ng-confirm>

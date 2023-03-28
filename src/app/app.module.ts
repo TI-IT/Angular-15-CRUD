@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from "@angular/material/core";
 import {HttpClientModule} from "@angular/common/http";
+import { LinksComponent } from './linkAddress/links/links.component';
 
 
 
@@ -32,7 +33,8 @@ import {HttpClientModule} from "@angular/common/http";
     AppComponent,
     CreateRegistrationComponent,
     RegistrationListComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    LinksComponent
   ],
   imports: [
     BrowserModule,
